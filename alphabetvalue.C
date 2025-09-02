@@ -30,7 +30,7 @@ int countsum(int n){
     char ch;
     for(j=0;j<strlen(arr[n-1]);j++){
         ch=arr[n-1][j];
-        sum+=(ch-'a'+1);
+        sum+=(ch-'a'+1); // ASCII value used.
     }
     return sum;
 }
