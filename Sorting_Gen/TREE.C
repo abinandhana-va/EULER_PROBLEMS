@@ -19,13 +19,14 @@ struct node * max(struct node * root);
 void search(struct node * root,int data);
 int countnode(struct node * root);
 int height(struct node * root);
+int clnode(struct node * root);
+int ilnode(struct node * root);
 
-
-struct node * root;
+struct node * root=NULL;
 
 int main(){
     //Insertion
-    int y=1,val,ct,ht;
+    int y=1,val,ct,ht,lf,il;
     printf("Funtion to create a BST !");
     do{
         printf("\nValue to insert:");
@@ -56,7 +57,16 @@ int main(){
     
     //Height of tree
     ht=height(root);
-    printf("Height of the tree is : %d",ht);
+    printf("\nHeight of the tree is : %d",ht);
+    
+    //Count no of leafnode
+    lf=clnode(root);
+    printf("\nNo of leafnodes: %d",lf);
+    
+    //Count no of Internal node
+    il=ilnode(root); 
+    printf("\nNof of Internalnodes: %d",il);
+    
     
     //Deletion of nodes
     printf("\nDeletion of tree nodes");
@@ -202,7 +212,7 @@ void search(struct node * root,int data){
 }
 
 int countnode(struct node * root){
-    while(root==NULL){
+    if(root==NULL){
         return 0;
     }
     return 1 + countnode(root->left)+countnode(root->right);
@@ -216,8 +226,25 @@ int height(struct node * root) {
     int leftHeight = height(root->left);
     int rightHeight = height(root->right);
 
-    if (leftHeight > rightHeight)
+    if (leftHeight >= rightHeight)
         return leftHeight + 1;
     else
         return rightHeight + 1;
+}
+
+int clnode(struct node * root){
+    if(root==NULL){
+        return 0;
+    }
+    if(root->left==NULL&&root->right==NULL){
+        return 1;
+    }
+    return clnode(root->left)+clnode(root->right);
+}
+
+int ilnode(struct node * root){
+    if(root==NULL||root->left==NULL&&root->right==NULL){
+        return 0;
+    }
+    return 1+ilnode(root->left)+ilnode(root->right);
 }
